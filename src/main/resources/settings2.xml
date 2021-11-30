@@ -1,0 +1,209 @@
+<?xml version="1.0"?>
+<Project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+         Guid="61a612f9-6d8d-8e1c-7e07-d5c1ffffffff" SettingsBundleGuid="b7a1a967-6b5f-40a8-af5c-ba88a54a0437"
+         Version="4.0.0.0" ProjectTemplateGuid="00000000-0000-0000-0000-000000000000"
+         ReferenceProjectGuid="00000000-0000-0000-0000-000000000000">
+    <LanguageDirections>
+        <LanguageDirection Guid="932db20f-0f2a-4a8c-9369-6474db7617a5"
+                           SettingsBundleGuid="6ba94326-ae4e-4076-afe5-7a701fe8b305" TargetLanguageCode="en-US"
+                           SourceLanguageCode="ko-KR">
+            <AutoSuggestDictionaries/>
+            <CascadeItem OverrideParent="false" StopSearchingWhenResultsFound="false"/>
+        </LanguageDirection>
+    </LanguageDirections>
+    <TermbaseConfiguration>
+        <Termbases>
+            <Name>KO_EN_Basic</Name>
+            <SettingsXml>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TermbaseSettings
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
+                &lt;Path&gt;Termbases\KO_EN_Basic.sdltb&lt;/Path&gt; &lt;IsOpen&gt;false&lt;/IsOpen&gt; &lt;Filter&gt;0&lt;/Filter&gt;
+                &lt;FilterHighlight&gt;false&lt;/FilterHighlight&gt; &lt;Layout&gt;0&lt;/Layout&gt; &lt;Local&gt;true&lt;/Local&gt;
+                &lt;IsCustom&gt;false&lt;/IsCustom&gt;&lt;/TermbaseSettings&gt;
+            </SettingsXml>
+            <Enabled>true</Enabled>
+        </Termbases>
+        <RecognitionOptions>
+            <ShowWithNoAvailableTranslation>false</ShowWithNoAvailableTranslation>
+            <MinimumMatchValue>70</MinimumMatchValue>
+            <SearchDepth>200</SearchDepth>
+            <SearchOrder>Parallel</SearchOrder>
+        </RecognitionOptions>
+    </TermbaseConfiguration>
+    <SettingsBundles>
+        <SettingsBundle Guid="b7a1a967-6b5f-40a8-af5c-ba88a54a0437">
+            <SettingsBundle>
+                <SettingsGroup Id="ProjectSettings">
+                    <Setting Id="ProjectOrigin">Offline cloud package</Setting>
+                </SettingsGroup>
+                <SettingsGroup Id="SourceContentSettings">
+                    <Setting Id="AllowSourceEditing">True</Setting>
+                    <Setting Id="AllowMergeAcrossParagraphs">True</Setting>
+                </SettingsGroup>
+                <SettingsGroup Id="TerminologyProviderSettings">
+                    <Setting Id="Termbases">
+                        <ArrayOfTermbase xmlns:i="http://www.w3.org/2001/XMLSchema-instance"
+                                         xmlns="http://schemas.datacontract.org/2004/07/Sdl.ProjectApi.Implementation.Xml"></ArrayOfTermbase>
+                    </Setting>
+                </SettingsGroup>
+                <SettingsGroup Id="SourceContentSettings">
+                    <Setting Id="AllowSourceEditing">True</Setting>
+                    <Setting Id="AllowMergeAcrossParagraphs">True</Setting>
+                </SettingsGroup>
+            </SettingsBundle>
+        </SettingsBundle>
+    </SettingsBundles>
+    <AnalysisBands>
+        <AnalysisBand MinimumMatchValue="50"/>
+        <AnalysisBand MinimumMatchValue="75"/>
+        <AnalysisBand MinimumMatchValue="85"/>
+        <AnalysisBand MinimumMatchValue="95"/>
+    </AnalysisBands>
+    <ManualTaskTemplates>
+        <ManualTaskTemplate Id="Sdl.ProjectApi.ManualTask.Review" Name="리뷰" Description="리뷰 파일"
+                            WorkflowStageType="Review">
+            <SupportedFileTypes/>
+        </ManualTaskTemplate>
+    </ManualTaskTemplates>
+    <Users>
+        <User UserId="6018c12c00f9d922f0590705" FullName="wooseok choi" Email="zbflzlxl@gmail.com" EmailType="None"/>
+        <User UserId="DESKTOP-6JJ2NQO\zbflz" FullName="Wooseok Choi" Description="" Email="zbflzlxl@gmail.com"
+              PhoneNumber="" EmailType="Smtp"/>
+    </Users>
+    <CascadeItem OverrideParent="true" StopSearchingWhenResultsFound="false">
+        <CascadeEntryItem PerformConcordanceSearch="true" Penalty="0" PerformUpdate="true" PerformNormalSearch="true">
+            <MainTranslationProviderItem Uri="sdltm.file:///Tm/KO_EN_General_ko-KR_en-US.sdltm" Enabled="true"/>
+        </CascadeEntryItem>
+        <CascadeEntryItem PerformConcordanceSearch="true" Penalty="0" PerformUpdate="false" PerformNormalSearch="true">
+            <MainTranslationProviderItem Uri="sdltm.file:///Tm/WeLoveU_ko-KR_en-US.sdltm" Enabled="true"/>
+        </CascadeEntryItem>
+        <CascadeEntryItem PerformConcordanceSearch="true" Penalty="0" PerformUpdate="false" PerformNormalSearch="true">
+            <MainTranslationProviderItem Uri="sdltm.file:///Tm/Bible_ko-KR_en-US.sdltm" Enabled="true"/>
+        </CascadeEntryItem>
+        <CascadeEntryItem PerformConcordanceSearch="true" Penalty="0" PerformUpdate="false" PerformNormalSearch="true">
+            <MainTranslationProviderItem Uri="sdltm.file:///Tm/SermonBook_ko-KR_en-US.sdltm" Enabled="true"/>
+        </CascadeEntryItem>
+        <CascadeEntryItem PerformConcordanceSearch="true" Penalty="0" PerformUpdate="false" PerformNormalSearch="true">
+            <MainTranslationProviderItem Uri="sdltm.file:///Tm/TruthBook_ko-KR_en-US.sdltm" Enabled="true"/>
+        </CascadeEntryItem>
+    </CascadeItem>
+    <GeneralProjectInfo IsInPlace="false" DueDate="2021-12-07T13:00:27Z" IsImported="true" Description=""
+                        Name="Test for change project settings" CreatedAt="2021-11-30T12:14:28.4518193Z"
+                        StartedAt="0001-01-01T00:00:00" Status="Started" CreatedBy="6018c12c00f9d922f0590705"/>
+    <SourceLanguageCode>ko-KR</SourceLanguageCode>
+    <ProjectFiles>
+        <ProjectFile Guid="d8249255-80d3-489d-9c35-af6d7f55ec9f" Path="" Role="Translatable" Name="Test Source.docx"
+                     ParentProjectFileGuid="00000000-0000-0000-0000-000000000000"
+                     FilterDefinitionId="WordprocessingML v. 2">
+            <SpecificTargetLanguages/>
+            <LanguageFiles>
+                <LanguageFile Guid="61a612fd-caa7-f71a-42e8-a94effffffff"
+                              SettingsBundleGuid="ba36bf09-68f8-42d4-b331-5db4f9d74b9f" LanguageCode="ko-KR">
+                    <FileVersions>
+                        <FileVersion Guid="b6f6fd4a-67dc-4895-a5b9-d9ed16e6fbe1" VersionNumber="1" Size="14299"
+                                     FileName="Test Source.docx" PhysicalPath="ko-KR\Test Source.docx"
+                                     CreatedBy="DESKTOP-6JJ2NQO\zbflz" CreatedAt="2021-11-30T12:14:39.4665273Z"
+                                     FileTimeStamp="2021-11-30T03:13:56Z" IsAutoUpload="false"/>
+                    </FileVersions>
+                    <AnalysisStatistics WordCountFileTimeStamp="2021-11-30T03:13:56Z" WordCountStatus="Complete"
+                                        AnalysisFileTimeStamp="2021-11-30T03:13:56Z" AnalysisStatus="Complete">
+                        <Total Words="0" Characters="0" Segments="0" Placeables="0" Tags="0"/>
+                        <Repetitions Words="0" Characters="0" Segments="0" Placeables="0" Tags="0"/>
+                        <Perfect Words="0" Characters="0" Segments="0" Placeables="0" Tags="0"/>
+                        <InContextExact Words="0" Characters="0" Segments="0" Placeables="0" Tags="0"/>
+                        <Exact Words="0" Characters="0" Segments="0" Placeables="0" Tags="0"/>
+                        <Fuzzy>
+                            <CountData Words="0" Characters="0" Segments="0" Placeables="0" Tags="0"/>
+                            <CountData Words="0" Characters="0" Segments="0" Placeables="0" Tags="0"/>
+                            <CountData Words="0" Characters="0" Segments="0" Placeables="0" Tags="0"/>
+                            <CountData Words="0" Characters="0" Segments="0" Placeables="0" Tags="0"/>
+                        </Fuzzy>
+                        <New Words="0" Characters="0" Segments="0" Placeables="0" Tags="0"/>
+                        <NewBaseline Words="0" Characters="0" Segments="0" Placeables="0" Tags="0"/>
+                        <NewLearnings Words="0" Characters="0" Segments="0" Placeables="0" Tags="0"/>
+                        <Locked Words="0" Characters="0" Segments="0" Placeables="0" Tags="0"/>
+                    </AnalysisStatistics>
+                    <ChildFiles/>
+                </LanguageFile>
+                <LanguageFile Guid="61a61320-4d15-293e-d19d-a35dffffffff"
+                              SettingsBundleGuid="1b9f0e4d-9318-45d2-aa1a-50f6679956c1" LanguageCode="en-US">
+                    <FileVersions>
+                        <FileVersion Guid="a57a1a86-ca37-4e8f-954b-ac2d3b897595" VersionNumber="1" Size="56915"
+                                     FileName="Test Source.docx.sdlxliff" PhysicalPath="en-US\Test Source.docx.sdlxliff"
+                                     CreatedBy="DESKTOP-6JJ2NQO\zbflz" CreatedAt="2021-11-30T12:14:39.4735275Z"
+                                     FileTimeStamp="2021-11-30T03:13:56Z" IsAutoUpload="false"/>
+                    </FileVersions>
+                    <AnalysisStatistics WordCountFileTimeStamp="2021-11-30T03:13:56Z" WordCountStatus="Complete"
+                                        AnalysisFileTimeStamp="2021-11-30T03:13:56Z" AnalysisStatus="Complete">
+                        <Total Words="287" Characters="890" Segments="22" Placeables="43" Tags="4"/>
+                        <Repetitions Words="0" Characters="0" Segments="0" Placeables="0" Tags="0"/>
+                        <Perfect Words="0" Characters="0" Segments="0" Placeables="0" Tags="0"/>
+                        <InContextExact Words="0" Characters="0" Segments="0" Placeables="0" Tags="0"/>
+                        <Exact Words="0" Characters="0" Segments="0" Placeables="0" Tags="0"/>
+                        <Fuzzy>
+                            <CountData Words="0" Characters="0" Segments="0" Placeables="0" Tags="0"/>
+                            <CountData Words="0" Characters="0" Segments="0" Placeables="0" Tags="0"/>
+                            <CountData Words="0" Characters="0" Segments="0" Placeables="0" Tags="0"/>
+                            <CountData Words="0" Characters="0" Segments="0" Placeables="0" Tags="0"/>
+                        </Fuzzy>
+                        <New Words="287" Characters="890" Segments="22" Placeables="43" Tags="4"/>
+                        <NewBaseline Words="0" Characters="0" Segments="0" Placeables="0" Tags="0"/>
+                        <NewLearnings Words="0" Characters="0" Segments="0" Placeables="0" Tags="0"/>
+                        <Locked Words="0" Characters="0" Segments="0" Placeables="0" Tags="0"/>
+                    </AnalysisStatistics>
+                    <ConfirmationStatistics FileTimeStamp="2021-11-30T03:13:56Z" Status="Complete">
+                        <Unspecified Words="287" Characters="890" Segments="22" Placeables="43" Tags="4"/>
+                        <Draft Words="0" Characters="0" Segments="0" Placeables="0" Tags="0"/>
+                        <Translated Words="0" Characters="0" Segments="0" Placeables="0" Tags="0"/>
+                        <RejectedTranslation Words="0" Characters="0" Segments="0" Placeables="0" Tags="0"/>
+                        <ApprovedTranslation Words="0" Characters="0" Segments="0" Placeables="0" Tags="0"/>
+                        <RejectedSignOff Words="0" Characters="0" Segments="0" Placeables="0" Tags="0"/>
+                        <ApprovedSignOff Words="0" Characters="0" Segments="0" Placeables="0" Tags="0"/>
+                    </ConfirmationStatistics>
+                    <ChildFiles/>
+                </LanguageFile>
+            </LanguageFiles>
+            <PreviousBilingualFiles/>
+        </ProjectFile>
+    </ProjectFiles>
+    <Tasks>
+        <ManualTask Guid="61a61521-6d8d-8e1c-7e08-65a7ffffffff" PercentComplete="0" Description="Linguistics review"
+                    Name="Linguistic Review" Status="Assigned" CreatedAt="2021-11-30T12:13:47.64Z"
+                    PredecessorTaskGuid="00000000-0000-0000-0000-000000000000" CreatedBy="6018c12c00f9d922f0590705"
+                    AssignedBy="6018c12c00f9d922f0590705" AssignedTo="6018c12c00f9d922f0590705"
+                    AssignedAt="2021-11-30T12:14:39.4935412Z" DueDate="2021-12-05T04:41:41.884Z">
+            <TaskTemplateIds>
+                <TaskTemplateId>Sdl.ProjectApi.ManualTask.Review</TaskTemplateId>
+            </TaskTemplateIds>
+            <Files>
+                <TaskFile Guid="48f77784-572b-4c67-8e64-8f42303d9254" Completed="false"
+                          ParentTaskFileGuid="00000000-0000-0000-0000-000000000000"
+                          LanguageFileGuid="61a61320-4d15-293e-d19d-a35dffffffff" Purpose="WorkFile">
+                    <Result Guid="00000000-0000-0000-0000-000000000000"/>
+                </TaskFile>
+            </Files>
+            <OutputFiles/>
+            <Reports/>
+            <Parameters/>
+            <Result Guid="00000000-0000-0000-0000-000000000000"/>
+        </ManualTask>
+    </Tasks>
+    <PackageOperations>
+        <ProjectPackageCreationOperations/>
+        <ProjectPackageImportOperations>
+            <ProjectPackageImport PackageName="Test for change project settings"
+                                  PackageGuid="69d793a5-9fa9-4ee1-95ac-90d29ecf7b98"
+                                  Guid="e83c293c-31d9-417b-b4c8-6afbc9d61387" Status="InProgress" PercentComplete="100"
+                                  Path="Packages\In\Test for change project settings-20211130-21h14m39s.sdlppx">
+                <Tasks>
+                    <TaskRef TaskGuid="61a61521-6d8d-8e1c-7e08-65a7ffffffff"/>
+                </Tasks>
+                <Files>
+                    <TaskFileRef TaskFileGuid="48f77784-572b-4c67-8e64-8f42303d9254"/>
+                </Files>
+                <Result Guid="00000000-0000-0000-0000-000000000000"/>
+            </ProjectPackageImport>
+        </ProjectPackageImportOperations>
+        <ReturnPackageCreationOperations/>
+        <ReturnPackageImportOperations/>
+    </PackageOperations>
+</Project>
