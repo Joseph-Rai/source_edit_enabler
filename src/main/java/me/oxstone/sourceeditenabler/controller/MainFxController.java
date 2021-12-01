@@ -77,6 +77,15 @@ public class MainFxController {
                      builder.append(line);
                 }
 
+                //Validation
+                if (builder.toString().contains("<SettingsGroup Id=\"SourceContentSettings\">")) {
+                    String title = "Fail!";
+                    String header = "Fail to enable.";
+                    msg = "Source Modification Options are already enabled.";
+                    showMsgbox(title, header, msg, Alert.AlertType.ERROR);
+                    return;
+                }
+
                 //Enable Settings
                 String disabledSetting = "</SettingsGroup>";
                 String enabledSetting = "</SettingsGroup>" +
@@ -138,8 +147,13 @@ public class MainFxController {
 
         private File showFileChooser (String title, Window ownerWindow, String path){
             FileChooser chooser = new FileChooser();
+            File dir = new File(path);
             chooser.setTitle(title);
-            chooser.setInitialDirectory(new File(path));
+            if (dir.isDirectory()) {
+                chooser.setInitialDirectory(dir);
+            } else {
+                chooser.setInitialDirectory(dir.getParentFile());
+            }
             return chooser.showOpenDialog(ownerWindow);
         }
 
