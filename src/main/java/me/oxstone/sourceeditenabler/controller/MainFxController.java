@@ -78,7 +78,7 @@ public class MainFxController {
                 }
 
                 //Validation
-                if (builder.toString().contains("<SettingsGroup Id=\"SourceContentSettings\">")) {
+                if (builder.toString().contains("<Setting Id=\"AllowSourceEditing\">True</Setting>")) {
                     String title = "Fail!";
                     String header = "Fail to enable.";
                     msg = "Source Modification Options are already enabled.";
