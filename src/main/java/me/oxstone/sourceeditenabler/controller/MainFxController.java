@@ -46,7 +46,7 @@ public class MainFxController {
     @FXML
     private Button btnEnabler;
 
-//    private static final String DESKTOP_PATH = System.getProperty("user.home") + "\\Desktop";
+    private static final String DESKTOP_PATH = System.getProperty("user.home") + "\\Desktop";
     private static final String DEFAULT_PATH = "C:\\Users\\zbflz\\Documents\\Studio 2021\\Projects";
 
     @Autowired
@@ -129,7 +129,11 @@ public class MainFxController {
             String title = "Select the settings file...";
             File targetDir;
             if (txtFolderPath.getText().equals("")) {
-                targetDir = showFileChooser(title, btnSearch.getScene().getWindow(), DEFAULT_PATH);
+                if (new File(DEFAULT_PATH).exists()) {
+                    targetDir = showFileChooser(title, btnSearch.getScene().getWindow(), DEFAULT_PATH);
+                } else {
+                    targetDir = showFileChooser(title, btnSearch.getScene().getWindow(), DESKTOP_PATH);
+                }
             } else {
                 targetDir = showFileChooser(title, btnSearch.getScene().getWindow(), txtFolderPath.getText());
             }
