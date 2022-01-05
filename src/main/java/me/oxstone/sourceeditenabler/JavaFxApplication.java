@@ -13,10 +13,10 @@ import org.springframework.context.ConfigurableApplicationContext;
 public class JavaFxApplication extends Application {
 
     private ConfigurableApplicationContext applicationContext;
-    public static final String PROGRAM_VER = "Source Edit Enabler Ver 1.0";
+    public static final String PROGRAM_VER = "Source Edit Enabler Ver 1.3";
     public static final String PROGRAM_AUTHOR = "oxstone7@gmail.com";
     public static final String PROGRAM_COPYRIGHT = "World Mission Society Church of God";
-    public static final String PROGRAM_LAST_MODIFIED = "30 Nov 2021";
+    public static final String PROGRAM_LAST_MODIFIED = "04 Jan 2022";
 
     @Override
     public void init() {

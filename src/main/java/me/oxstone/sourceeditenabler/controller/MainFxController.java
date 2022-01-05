@@ -19,6 +19,7 @@ import org.springframework.stereotype.Controller;
 import java.awt.*;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.Optional;
 
 @Controller
@@ -47,7 +48,7 @@ public class MainFxController {
     private Button btnEnabler;
 
     private static final String DESKTOP_PATH = System.getProperty("user.home") + "\\Desktop";
-    private static final String DEFAULT_PATH = "C:\\Users\\zbflz\\Documents\\Studio 2021\\Projects";
+    private static final String DEFAULT_PATH = System.getProperty("user.home") + "\\Documents\\Studio 2021\\Projects";
 
     @Autowired
     public MainFxController() {
@@ -75,25 +76,47 @@ public class MainFxController {
                 StringBuilder builder = new StringBuilder();
                 while ((line = reader.readLine()) != null) {
                      builder.append(line);
+                     builder.append(System.lineSeparator());
                 }
 
                 //Validation
-                if (builder.toString().contains("<Setting Id=\"AllowSourceEditing\">True</Setting>")) {
-                    String title = "Fail!";
-                    String header = "Fail to enable.";
-                    msg = "Source Modification Options are already enabled.";
-                    showMsgbox(title, header, msg, Alert.AlertType.ERROR);
-                    return;
-                }
+//                if (builder.toString().contains("<Setting Id=\"AllowSourceEditing\">True</Setting>")) {
+//                    String title = "Fail!";
+//                    String header = "Fail to enable.";
+//                    msg = "Source Modification Options are already enabled.";
+//                    showMsgbox(title, header, msg, Alert.AlertType.ERROR);
+//                    return;
+//                }
 
+                String result = null;
                 //Enable Settings
-                String disabledSetting = "</SettingsGroup>";
-                String enabledSetting = "</SettingsGroup>" +
-                        "\t\t<SettingsGroup Id=\"SourceContentSettings\">\n" +
-                        "\t\t  <Setting Id=\"AllowSourceEditing\">True</Setting>\n" +
-                        "\t\t  <Setting Id=\"AllowMergeAcrossParagraphs\">True</Setting>\n" +
-                        "\t\t</SettingsGroup>";
-                String result = builder.toString().replace(disabledSetting, enabledSetting);
+                if (builder.toString().contains("<Setting Id=\"AllowSourceEditing\">False</Setting>")) {
+                    result = builder.toString().replaceAll(
+                            "<Setting Id=\"AllowSourceEditing\">False</Setting>",
+                            "<Setting Id=\"AllowSourceEditing\">True</Setting>"
+                    );
+                    result = result.replaceAll(
+                            "<Setting Id=\"AllowMergeAcrossParagraphs\">False</Setting>",
+                            "<Setting Id=\"AllowMergeAcrossParagraphs\">True</Setting>"
+                    );
+                } else {
+                    //Validation
+                    if (builder.toString().contains("<Setting Id=\"AllowSourceEditing\">True</Setting>")) {
+                        String title = "Fail!";
+                        String header = "Fail to enable.";
+                        msg = "Source Modification Options are already enabled.";
+                        showMsgbox(title, header, msg, Alert.AlertType.ERROR);
+                        return;
+                    }
+
+                    String disabledSetting = "</SettingsGroup>";
+                    String enabledSetting = "</SettingsGroup>" +
+                            "\t\t<SettingsGroup Id=\"SourceContentSettings\">\n" +
+                            "\t\t  <Setting Id=\"AllowSourceEditing\">True</Setting>\n" +
+                            "\t\t  <Setting Id=\"AllowMergeAcrossParagraphs\">True</Setting>\n" +
+                            "\t\t</SettingsGroup>";
+                    result = builder.toString().replace(disabledSetting, enabledSetting);
+                }
 
                 //파일 쓰기
                 BufferedWriter writer = new BufferedWriter(new FileWriter(file, StandardCharsets.UTF_8));
@@ -124,79 +147,79 @@ public class MainFxController {
 
     }
 
-        @FXML
-        void clickBtnSearch (ActionEvent event){
-            String title = "Select the settings file...";
-            File targetDir;
-            if (txtFolderPath.getText().equals("")) {
-                if (new File(DEFAULT_PATH).exists()) {
-                    targetDir = showFileChooser(title, btnSearch.getScene().getWindow(), DEFAULT_PATH);
-                } else {
-                    targetDir = showFileChooser(title, btnSearch.getScene().getWindow(), DESKTOP_PATH);
-                }
+    @FXML
+    void clickBtnSearch (ActionEvent event){
+        String title = "Select the settings file...";
+        File targetDir;
+        if (txtFolderPath.getText().equals("")) {
+            if (new File(DEFAULT_PATH).exists()) {
+                targetDir = showFileChooser(title, btnSearch.getScene().getWindow(), DEFAULT_PATH);
             } else {
-                targetDir = showFileChooser(title, btnSearch.getScene().getWindow(), txtFolderPath.getText());
+                targetDir = showFileChooser(title, btnSearch.getScene().getWindow(), DESKTOP_PATH);
             }
-            Platform.runLater(() -> {
-                txtFolderPath.setText(targetDir.getPath());
-            });
+        } else {
+            targetDir = showFileChooser(title, btnSearch.getScene().getWindow(), txtFolderPath.getText());
         }
-
-        private File showDirectoryChooser (String title, Window ownerWindow, String path){
-            DirectoryChooser chooser = new DirectoryChooser();
-            chooser.setTitle(title);
-            chooser.setInitialDirectory(new File(path));
-            return chooser.showDialog(ownerWindow);
-        }
-
-        private File showFileChooser (String title, Window ownerWindow, String path){
-            FileChooser chooser = new FileChooser();
-            File dir = new File(path);
-            chooser.setTitle(title);
-            if (dir.isDirectory()) {
-                chooser.setInitialDirectory(dir);
-            } else {
-                chooser.setInitialDirectory(dir.getParentFile());
-            }
-            return chooser.showOpenDialog(ownerWindow);
-        }
-
-        @FXML
-        void clickMenuClose (ActionEvent event){
-            Platform.exit();
-        }
-
-        @FXML
-        void clickMenuAbout (ActionEvent event){
-            String title = JavaFxApplication.PROGRAM_VER;
-            String header = "" +
-                    "Program Author: " + JavaFxApplication.PROGRAM_AUTHOR +
-                    "\n\nCopy Right: " + JavaFxApplication.PROGRAM_COPYRIGHT +
-                    "\n\nLast Modified Date: " + JavaFxApplication.PROGRAM_LAST_MODIFIED;
-            String msg = "" +
-                    "This program activates the source modification and \n\n" +
-                    "source merging functions of the project downloaded from TRADOS LIVE.";
-            showMsgbox(title, header, msg, Alert.AlertType.INFORMATION);
-        }
-
-        private void showMsgbox (String title, String header, String content, Alert.AlertType alertType){
-            Alert alert = new Alert(alertType);
-            alert.setTitle(title);
-            alert.setHeaderText(header);
-            alert.setContentText(content);
-
-            DialogPane dialogPane = alert.getDialogPane();
-            dialogPane.getStylesheets().add(
-                    getClass().getResource("Stylesheet.css").toExternalForm());
-            dialogPane.getStyleClass().add("myDialog");
-
-            Optional<ButtonType> result = alert.showAndWait();
-            if (result.get() == ButtonType.OK) {
-                alert.close();
-            } else {
-                // ... user chose CANCEL or closed the dialog
-            }
-        }
-
+        Platform.runLater(() -> {
+            txtFolderPath.setText(targetDir.getPath());
+        });
     }
+
+    private File showDirectoryChooser (String title, Window ownerWindow, String path){
+        DirectoryChooser chooser = new DirectoryChooser();
+        chooser.setTitle(title);
+        chooser.setInitialDirectory(new File(path));
+        return chooser.showDialog(ownerWindow);
+    }
+
+    private File showFileChooser (String title, Window ownerWindow, String path){
+        FileChooser chooser = new FileChooser();
+        File dir = new File(path);
+        chooser.setTitle(title);
+        if (dir.isDirectory()) {
+            chooser.setInitialDirectory(dir);
+        } else {
+            chooser.setInitialDirectory(dir.getParentFile());
+        }
+        return chooser.showOpenDialog(ownerWindow);
+    }
+
+    @FXML
+    void clickMenuClose (ActionEvent event){
+        Platform.exit();
+    }
+
+    @FXML
+    void clickMenuAbout (ActionEvent event){
+        String title = JavaFxApplication.PROGRAM_VER;
+        String header = "" +
+                "Program Author: " + JavaFxApplication.PROGRAM_AUTHOR +
+                "\n\nCopy Right: " + JavaFxApplication.PROGRAM_COPYRIGHT +
+                "\n\nLast Modified Date: " + JavaFxApplication.PROGRAM_LAST_MODIFIED;
+        String msg = "" +
+                "This program activates the source modification and \n\n" +
+                "source merging functions of the project downloaded from TRADOS LIVE.";
+        showMsgbox(title, header, msg, Alert.AlertType.INFORMATION);
+    }
+
+    private void showMsgbox (String title, String header, String content, Alert.AlertType alertType){
+        Alert alert = new Alert(alertType);
+        alert.setTitle(title);
+        alert.setHeaderText(header);
+        alert.setContentText(content);
+
+        DialogPane dialogPane = alert.getDialogPane();
+        dialogPane.getStylesheets().add(
+                getClass().getResource("Stylesheet.css").toExternalForm());
+        dialogPane.getStyleClass().add("myDialog");
+
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == ButtonType.OK) {
+            alert.close();
+        } else {
+            // ... user chose CANCEL or closed the dialog
+        }
+    }
+
+}
 
