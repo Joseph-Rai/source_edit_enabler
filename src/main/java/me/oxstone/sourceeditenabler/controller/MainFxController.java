@@ -13,6 +13,11 @@ import javafx.stage.FileChooser;
 import javafx.stage.Window;
 import me.oxstone.sourceeditenabler.JavaFxApplication;
 import net.rgielen.fxweaver.core.FxmlView;
+import org.dom4j.Document;
+import org.dom4j.Element;
+import org.dom4j.io.OutputFormat;
+import org.dom4j.io.SAXReader;
+import org.dom4j.io.XMLWriter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
@@ -20,6 +25,7 @@ import java.awt.*;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.Optional;
 
 @Controller
@@ -71,61 +77,50 @@ public class MainFxController {
             File file = new File(filePath);
             if (file.exists()) { // 파일이 존재하지 않으면
                 //파일 읽기
-                BufferedReader reader = new BufferedReader(new FileReader(file, StandardCharsets.UTF_8));
-                String line = null;
-                StringBuilder builder = new StringBuilder();
-                while ((line = reader.readLine()) != null) {
-                     builder.append(line);
-                     builder.append(System.lineSeparator());
-                }
+                SAXReader reader = new SAXReader();
+                Document document = reader.read(file);
+                Element root = document.getRootElement();
+                Element settingsBundles = root.element("SettingsBundles");
 
-                //Validation
-//                if (builder.toString().contains("<Setting Id=\"AllowSourceEditing\">True</Setting>")) {
-//                    String title = "Fail!";
-//                    String header = "Fail to enable.";
-//                    msg = "Source Modification Options are already enabled.";
-//                    showMsgbox(title, header, msg, Alert.AlertType.ERROR);
-//                    return;
-//                }
-
-                String result = null;
                 //Enable Settings
-                if (builder.toString().contains("<Setting Id=\"AllowSourceEditing\">False</Setting>")) {
-                    result = builder.toString().replaceAll(
-                            "<Setting Id=\"AllowSourceEditing\">False</Setting>",
-                            "<Setting Id=\"AllowSourceEditing\">True</Setting>"
-                    );
-                    result = result.replaceAll(
-                            "<Setting Id=\"AllowMergeAcrossParagraphs\">False</Setting>",
-                            "<Setting Id=\"AllowMergeAcrossParagraphs\">True</Setting>"
-                    );
-                } else {
-                    //Validation
-                    if (builder.toString().contains("<Setting Id=\"AllowSourceEditing\">True</Setting>")) {
-                        String title = "Fail!";
-                        String header = "Fail to enable.";
-                        msg = "Source Modification Options are already enabled.";
-                        showMsgbox(title, header, msg, Alert.AlertType.ERROR);
-                        return;
+                // 루트의 엘리먼트 중 "foo"라는 이름을 갖는엘리먼트의 자식노드 반복
+                for (Iterator i = settingsBundles.elementIterator( "SettingsBundle" ); i.hasNext(); ) {
+                    boolean haveSettings = false;
+                    Element settingsBundle = (Element) i.next();
+                    for (Iterator j = settingsBundle.element("SettingsBundle").elementIterator( "SettingsGroup" ); j.hasNext(); ) {
+                        Element settingsGroup = (Element) j.next();
+                        if (settingsGroup.attribute("Id").equals("SourceContentSettings")) {
+                            haveSettings = true;
+                            // Setting에 True 값 적용
+                            for (Iterator k = settingsGroup.elementIterator( "Setting" ); k.hasNext(); ) {
+                                Element setting = (Element) k.next();
+                                setting.setText("True");
+                            }
+                        }
                     }
-
-                    String disabledSetting = "</SettingsGroup>";
-                    String enabledSetting = "</SettingsGroup>" +
-                            "\t\t<SettingsGroup Id=\"SourceContentSettings\">\n" +
-                            "\t\t  <Setting Id=\"AllowSourceEditing\">True</Setting>\n" +
-                            "\t\t  <Setting Id=\"AllowMergeAcrossParagraphs\">True</Setting>\n" +
-                            "\t\t</SettingsGroup>";
-                    result = builder.toString().replace(disabledSetting, enabledSetting);
+                    if (!haveSettings) {
+                        Element target = settingsBundle.element("SettingsBundle");
+                        target.addElement("SettingsGroup")
+                                .addAttribute("Id", "SourceContentSettings");
+                        for (Iterator l = target.elementIterator( "SettingsGroup" ); l.hasNext(); ) {
+                            Element sourceContentSettings = (Element) l.next();
+                            if (sourceContentSettings.attribute("Id").getValue().equals("SourceContentSettings")) {
+                                sourceContentSettings.addElement("Setting").addAttribute("Id", "AllowSourceEditing").addText("True");
+                                sourceContentSettings.addElement("Setting").addAttribute("Id", "AllowMergeAcrossParagraphs").addText("True");
+                            }
+                        }
+                    }
                 }
 
                 //파일 쓰기
-                BufferedWriter writer = new BufferedWriter(new FileWriter(file, StandardCharsets.UTF_8));
-                writer.write(result);
-                writer.flush();
+                OutputFormat format = OutputFormat.createPrettyPrint();
+                XMLWriter writer = new XMLWriter(
+                        new FileWriter(filePath), format
+                );
+                writer.write(document);
 
                 // 스트림 종료
                 writer.close();
-                reader.close();
             } else {
                 // 파일이 존재하지 않을 시 에러발생
                 throw new Exception();
