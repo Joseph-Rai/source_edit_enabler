@@ -10,7 +10,7 @@
     </parent>
     <groupId>me.oxstone</groupId>
     <artifactId>SourceEditEnabler</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>1.4.1</version>
     <name>SourceEditEnabler</name>
     <description>SourceEditEnabler</description>
     <properties>

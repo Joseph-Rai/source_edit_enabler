@@ -89,7 +89,7 @@ public class MainFxController {
                     Element settingsBundle = (Element) i.next();
                     for (Iterator j = settingsBundle.element("SettingsBundle").elementIterator( "SettingsGroup" ); j.hasNext(); ) {
                         Element settingsGroup = (Element) j.next();
-                        if (settingsGroup.attribute("Id").equals("SourceContentSettings")) {
+                        if (settingsGroup.attribute("Id").getValue().equals("SourceContentSettings")) {
                             haveSettings = true;
                             // Setting에 True 값 적용
                             for (Iterator k = settingsGroup.elementIterator( "Setting" ); k.hasNext(); ) {
@@ -115,7 +115,7 @@ public class MainFxController {
                 //파일 쓰기
                 OutputFormat format = OutputFormat.createPrettyPrint();
                 XMLWriter writer = new XMLWriter(
-                        new FileWriter(filePath), format
+                        new FileWriter(filePath, StandardCharsets.UTF_8), format
                 );
                 writer.write(document);
 
