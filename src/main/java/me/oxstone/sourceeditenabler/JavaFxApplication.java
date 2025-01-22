@@ -13,7 +13,7 @@ import org.springframework.context.ConfigurableApplicationContext;
 public class JavaFxApplication extends Application {
 
     private ConfigurableApplicationContext applicationContext;
-    public static final String PROGRAM_VER = "Source Edit Enabler Ver 1.4";
+    public static final String PROGRAM_VER = "Source Edit Enabler Ver 1.5";
     public static final String PROGRAM_AUTHOR = "oxstone7@gmail.com";
     public static final String PROGRAM_COPYRIGHT = "World Mission Society Church of God";
     public static final String PROGRAM_LAST_MODIFIED = "05 Apr 2022";
