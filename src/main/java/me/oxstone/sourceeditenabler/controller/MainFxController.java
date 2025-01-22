@@ -95,9 +95,9 @@ public class MainFxController {
                             List<String> idList = List.of("AllowSourceEditing", "AllowMergeAcrossParagraphs");
                             for (String id : idList) {
                                 // Setting에 True 값 적용
-                                Node AllowSourceEditing = settingsGroup.selectSingleNode("./Setting[@Id='" + id + "']");
-                                if (AllowSourceEditing != null) {
-                                    ((Element) AllowSourceEditing).setText("True");
+                                Node node = settingsGroup.selectSingleNode("./Setting[@Id='" + id + "']");
+                                if (node != null) {
+                                    ((Element) node).setText("True");
                                 } else {
                                     // 존재하지 않으면 새로 생성
                                     Element newSetting = settingsGroup.addElement("Setting");
