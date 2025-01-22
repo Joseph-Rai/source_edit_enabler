@@ -15,6 +15,7 @@ import me.oxstone.sourceeditenabler.JavaFxApplication;
 import net.rgielen.fxweaver.core.FxmlView;
 import org.dom4j.Document;
 import org.dom4j.Element;
+import org.dom4j.Node;
 import org.dom4j.io.OutputFormat;
 import org.dom4j.io.SAXReader;
 import org.dom4j.io.XMLWriter;
@@ -24,8 +25,8 @@ import org.springframework.stereotype.Controller;
 import java.awt.*;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -91,10 +92,18 @@ public class MainFxController {
                         Element settingsGroup = (Element) j.next();
                         if (settingsGroup.attribute("Id").getValue().equals("SourceContentSettings")) {
                             haveSettings = true;
-                            // Setting에 True 값 적용
-                            for (Iterator k = settingsGroup.elementIterator( "Setting" ); k.hasNext(); ) {
-                                Element setting = (Element) k.next();
-                                setting.setText("True");
+                            List<String> idList = List.of("AllowSourceEditing", "AllowMergeAcrossParagraphs");
+                            for (String id : idList) {
+                                // Setting에 True 값 적용
+                                Node AllowSourceEditing = settingsGroup.selectSingleNode("./Setting[@Id='" + id + "']");
+                                if (AllowSourceEditing != null) {
+                                    ((Element) AllowSourceEditing).setText("True");
+                                } else {
+                                    // 존재하지 않으면 새로 생성
+                                    Element newSetting = settingsGroup.addElement("Setting");
+                                    newSetting.addAttribute("Id", id);
+                                    newSetting.setText("True");
+                                }
                             }
                         }
                     }
